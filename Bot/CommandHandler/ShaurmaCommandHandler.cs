@@ -5,30 +5,29 @@ using Telegram.Bot.Types.Enums;
 
 namespace Bot.CommandHandler;
 
-public class FoodMenuCommandHandler : ICommandHandler
+public class ShaurmaCommandHandler : ICommandHandler
 {
-    public string Command => "/foodmenu";
-
+    public string Command => "/shaurma";
     public async Task HandleAsync(string? args, TelegramBotClient bot, object? update)
     {
         using var stream = System.IO.File.OpenRead("images/menuphoto.jpg");
 
-        var fileToSend = new InputFileStream(stream, "menuphoto.jpg");
-
-        var (caption, inlineMarkup) = FoodMenuMarkup.GetMarkup();
         switch (update)
         {
             case CallbackQuery callbackQuery:
 
+                var fileToSend = new InputFileStream(stream, "menuphoto.jpg");
+
+                var (caption, inlineMarkup) = ShaurmaMarkup.GetMarkup();
                 var media = new InputMediaPhoto(fileToSend)
                 {
                     Caption = caption,
-                    ParseMode = ParseMode.None
+                    ParseMode = ParseMode.Html
                 };
                 await bot.EditMessageMedia(
                     callbackQuery.Message.Chat.Id,
                     callbackQuery.Message.MessageId,
-                    media: media,
+                    media,
                     inlineMarkup
                 );
                 break;

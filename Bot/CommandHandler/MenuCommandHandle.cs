@@ -11,9 +11,9 @@ public class MenuCommandHandle : ICommandHandler
 
     public async Task HandleAsync(string? args, TelegramBotClient bot, object update)
     {
-        using var stream = System.IO.File.OpenRead("images/menuphoto.png");
+        using var stream = System.IO.File.OpenRead("images/menuphoto.jpg");
         
-        var fileToSend = new InputFileStream(stream, "menuphoto.png");
+        var fileToSend = new InputFileStream(stream, "menuphoto.jpg");
 
         var (caption, inlineMarkup) = MenuMarkup.GetMarkup();
         

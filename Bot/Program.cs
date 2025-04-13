@@ -14,7 +14,10 @@ var config = new ConfigurationBuilder()
 
 var services = new ServiceCollection();
 
-
+services.AddTransient<ICommandHandler, PizzaCommandHandler>();
+services.AddTransient<ICommandHandler, OtherCommandHandler>();
+services.AddTransient<ICommandHandler, DrinksCommnadHandler>();
+services.AddTransient<ICommandHandler, ShaurmaCommandHandler>();
 services.AddTransient<ICommandHandler, MenuCommandHandle>();
 services.AddTransient<ICommandHandler, FoodMenuCommandHandler>();
 services.AddSingleton<CommandDispatcher>();
@@ -103,11 +106,25 @@ async Task OnUpdate(Update update)
 
 async Task OnCallbackQuery(CallbackQuery callbackQuery)
 {
-    dispatcher.DispatchAsync(callbackQuery.Data, bot, callbackQuery, null);
+    var command = Parce(callbackQuery.Data);
+    var args = callbackQuery.Data[command.Length..];
+    dispatcher.DispatchAsync(command, bot, callbackQuery, args);
 }
 
 async Task OnPollAnswer(PollAnswer pollAnswer)
 {
     if (pollAnswer.User != null)
         await bot.SendMessage(pollAnswer.User.Id, $"You voted for option(s) id [{string.Join(',', pollAnswer.OptionIds)}]");
+}
+
+
+string Parce(string data)
+{
+    if (data.Contains(':'))
+    {
+        var index = data.IndexOf(':');
+        return data[..index];
+    }
+
+    return data;
 }
