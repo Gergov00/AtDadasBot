@@ -1,11 +1,13 @@
-﻿using Bot.CommandHandler;
+﻿using Bot;
+using Bot.CommandHandler;
+using Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Bot.Murkup;
 using Microsoft.Extensions.DependencyInjection;
+
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -20,7 +22,10 @@ services.AddTransient<ICommandHandler, DrinksCommnadHandler>();
 services.AddTransient<ICommandHandler, ShaurmaCommandHandler>();
 services.AddTransient<ICommandHandler, MenuCommandHandle>();
 services.AddTransient<ICommandHandler, FoodMenuCommandHandler>();
+services.AddTransient<ICommandHandler, AddBasketCommandHandler>();
+services.AddTransient<ICommandHandler, CartCommandHandler>();
 services.AddSingleton<CommandDispatcher>();
+services.AddSingleton<ICartService, InMemoryCartService>();
 
 var serviceProvider = services.BuildServiceProvider();
 

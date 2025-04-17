@@ -1,7 +1,8 @@
+using Bot.CommandHandler;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace Bot.CommandHandler;
+namespace Bot;
 
 public class CommandDispatcher
 {

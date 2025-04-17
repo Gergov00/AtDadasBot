@@ -1,6 +1,6 @@
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Bot.Murkup;
+namespace Bot.Markup;
 
 public class FoodMenuMarkup
 {
@@ -13,8 +13,8 @@ public class FoodMenuMarkup
                 {
                     [InlineKeyboardButton.WithCallbackData("Пицца", "/pizza")],
                     [InlineKeyboardButton.WithCallbackData("Шаурма/Хот-дог", "/shaurma")],
+                    [InlineKeyboardButton.WithCallbackData("Картошка, наггетсы и прочее", "/others")],
                     [InlineKeyboardButton.WithCallbackData("Напитки", "/drinks")],
-                    [InlineKeyboardButton.WithCallbackData("Прочее", "/others")],
                     [InlineKeyboardButton.WithCallbackData("Назад", "/menu")],
                 }
             )

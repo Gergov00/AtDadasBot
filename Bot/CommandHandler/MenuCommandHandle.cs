@@ -1,4 +1,4 @@
-using Bot.Murkup;
+using Bot.Markup;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -11,9 +11,9 @@ public class MenuCommandHandle : ICommandHandler
 
     public async Task HandleAsync(string? args, TelegramBotClient bot, object update)
     {
-        using var stream = System.IO.File.OpenRead("images/menuphoto.jpg");
+        using var stream = System.IO.File.OpenRead("images/logo.jpg");
         
-        var fileToSend = new InputFileStream(stream, "menuphoto.jpg");
+        var fileToSend = new InputFileStream(stream, "logo.jpg");
 
         var (caption, inlineMarkup) = MenuMarkup.GetMarkup();
         
